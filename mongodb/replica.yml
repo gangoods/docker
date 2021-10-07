@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+
+  mongo1:
+    image: mongo:4.2.15
+    ##restart: always
+    container_name: mongo1
+    ports:
+      - 28017:27017
+    volumes:
+      - ./cfg1:/etc/mongod
+      - ~/docker_data/mongo/db1:/data/db1
+        #    environment:
+        #MONGO_INITDB_ROOT_USERNAME: root
+        #MONGO_INITDB_ROOT_PASSWORD: root
+        #command: --config /etc/mongod/mongod.conf
+    command: --dbpath /data/db1 --replSet rs0
+  mongo2:
+    image: mongo:4.2.15
+    ##restart: always
+    container_name: mongo2
+    ports:
+      - 28018:27017
+    volumes:
+      - ./cfg2:/etc/mongo
+      - ~/docker_data/mongo/db2:/data/db2
+        #environment:
+        #MONGO_INITDB_ROOT_USERNAME: root
+        #MONGO_INITDB_ROOT_PASSWORD: root
+    command: --dbpath /data/db2 --replSet rs0
+  mongo3:
+    image: mongo:4.2.15
+    ##restart: always
+    container_name: mongo3
+    ports:
+      - 28019:27017
+    volumes:
+      - ./cfg3:/etc/mongo
+      - ~/docker_data/mongo/db3:/data/db3
+        #environment:
+        #MONGO_INITDB_ROOT_USERNAME: root
+        #MONGO_INITDB_ROOT_PASSWORD: root
+    command: --dbpath /data/db3 --replSet rs0
+
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo_web
+    ## restart: always
+    ports:
+      - 8081:8081
+    environment:
+      #ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      # ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_SERVER: mongo1
+      ME_CONFIG_MONGODB_PORT: 28017
+        #ME_CONFIG_MONGODB_URL: mongodb://root:root@mongo:27017/

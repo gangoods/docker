@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    environment:
+      GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ~/docker_data/grafana/data:/var/lib/grafana

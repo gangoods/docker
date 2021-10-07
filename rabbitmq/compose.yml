@@ -1,0 +1,29 @@
+version: '3.1'
+services:
+  rabbitmq:
+    image: rabbitmq:3.6.9-management
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+    hostname: rmq
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_VHOST: /
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+      RABBITMQ_LOGS: ~/docker_data/rabbitmq/rabbitmq.log
+      RABBITMQ_SASL_LOGS: ~/docker_data/rabbitmq/rabbitmq-sasl.log
+      RABBITMQ_ERLANG_COOKIE: LZJADKXKLULIXFKAALGX
+      TZ: Asia/Shanghai
+      #extra_hosts:
+#      - "rmq_node1:172.16.11.106"
+#- "rmq_node2:172.16.11.156"
+#      - "rmq_node3:172.16.11.206"
+    volumes:
+      - ./data:/var/lib/rabbitmq
+#      - /etc/hosts:/etc/hosts
+#      设置为always后,启动docker后,这个会自动启动的, 所以不要
+#restart: always

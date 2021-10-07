@@ -1,0 +1,12 @@
+version: '3'
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+      #    restart: always
+    volumes:
+      - ~/docker_data/redis/data:/data
+      - ~/docker_data/redis/logs:/logs
+        #- ./conf/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
