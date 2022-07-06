@@ -1,0 +1,7 @@
+FROM gcr.io/distroless/static:nonroot
+
+MAINTAINER Zihong Zheng <zihongz@google.com>
+
+ADD cluster-proportional-autoscaler /cluster-proportional-autoscaler
+
+ENTRYPOINT ["/cluster-proportional-autoscaler"]
